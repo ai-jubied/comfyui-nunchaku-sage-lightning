@@ -89,5 +89,31 @@ fi
 echo "🧠 Installing SageAttention 2.2.0 natively..."
 pip install sageattention==2.2.0
 
+# --- AI TOOLKIT ---
+echo "🛠️ Installing AI Toolkit limitlessly..."
+AITK_DIR="../ai-toolkit"
+AITK_REPO_URL="https://github.com/ostris/ai-toolkit.git"
+
+if [ ! -d "$AITK_DIR" ]; then
+    echo "📥 Cloning AI Toolkit..."
+    git clone --depth 1 "$AITK_REPO_URL" "$AITK_DIR"
+fi
+
+echo "📦 Installing AI Toolkit Python requirements..."
+# Strip out torch since we natively installed right Torch version above
+grep -Ev '^(torch|torchvision|torchaudio)($|[<>=])' "$AITK_DIR/requirements.txt" > "$AITK_DIR/requirements.no-torch.txt"
+pip install -r "$AITK_DIR/requirements.no-torch.txt"
+
+echo "🌐 Bootstrapping AI Toolkit UI..."
+if command -v npm &> /dev/null; then
+    cd "$AITK_DIR/ui"
+    npm install --include=dev
+    npm run update_db
+    npm run build
+    cd ../../ComfyUI
+else
+    echo "⚠️ NPM not found. UI component for AI toolkit will not build."
+fi
+
 echo "✅ Setup Complete. Run 'bash start_comfy.sh' to launch."
 cd ..

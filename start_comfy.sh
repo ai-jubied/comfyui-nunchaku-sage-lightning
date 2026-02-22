@@ -7,6 +7,15 @@ cd "$(dirname "$0")/ComfyUI" || exit 1
 # Make sure we don't try to use an isolated venv accidentally if one slipped in
 unset VIRTUAL_ENV
 
+# Launch AI Toolkit in background if it exists
+AITK_DIR="../ai-toolkit"
+AITK_UI_PORT="8675"
+if [ -d "$AITK_DIR/ui" ] && command -v npm &> /dev/null; then
+    echo "🛠️ Starting AI Toolkit on Port $AITK_UI_PORT..."
+    echo "   (Use Lightning Ports to map port $AITK_UI_PORT to your browser)"
+    (cd "$AITK_DIR/ui" && env HOST="0.0.0.0" PORT="$AITK_UI_PORT" npm run start >> ../aitk_ui.log 2>&1) &
+fi
+
 # Launch ComfyUI
 # You can view it using the Studio's Web URL forwarder for port 8188
 echo "🚀 Starting ComfyUI on Port 8188..."
