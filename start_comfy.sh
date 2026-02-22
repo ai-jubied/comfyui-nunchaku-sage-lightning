@@ -16,6 +16,13 @@ if [ -d "$AITK_DIR/ui" ] && command -v npm &> /dev/null; then
     (cd "$AITK_DIR/ui" && env HOST="0.0.0.0" PORT="$AITK_UI_PORT" npm run start >> ../aitk_ui.log 2>&1) &
 fi
 
+# Launch Filebrowser in background
+if command -v filebrowser &> /dev/null; then
+    echo "📂 Starting Filebrowser on Port 8080..."
+    echo "   (Use Lightning Ports to map port 8080 to your browser)"
+    filebrowser --address=0.0.0.0 --port=8080 --root=/teamspace/studios/this_studio --noauth &> ../filebrowser.log &
+fi
+
 # Launch ComfyUI
 # You can view it using the Studio's Web URL forwarder for port 8188
 echo "🚀 Starting ComfyUI on Port 8188..."

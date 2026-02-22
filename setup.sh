@@ -12,6 +12,14 @@ pip install --upgrade pip
 echo "🔥 Installing PyTorch 2.5.1 with CUDA 12.4..."
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
+# Install Filebrowser globally
+echo "📂 Installing Filebrowser..."
+if ! command -v filebrowser &> /dev/null; then
+    curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+else
+    echo "✅ Filebrowser is already installed."
+fi
+
 # Clone ComfyUI base
 if [ ! -d "ComfyUI" ]; then
     echo "📥 Cloning ComfyUI v0.14.2..."
