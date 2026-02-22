@@ -32,30 +32,39 @@ bash setup.sh
 This script will automatically:
 - Upgrade `pip`
 - Install PyTorch `2.5.1` (CUDA 12.4) tailored for A100/L40S.
+- Install **Filebrowser**.
 - Clone the ComfyUI core engine.
 - Install essential custom nodes (Manager, Crystools, HF Downloader, Civicomfy).
 - Attemp to install the **Nunchaku Engine** matching your PyTorch version.
 - Install **SageAttention 2.2.0** natively.
+- Clone and bootstrap **Ostris' AI Toolkit**.
 
 ---
 
-## ▶️ Running ComfyUI
+## ▶️ Running Services
 
-Once setup is complete, you can start ComfyUI at any time using:
+Once setup is complete, you can start everything at any time using:
 ```bash
 bash start_comfy.sh
 ```
 
-### Accessing the UI
+### Accessing the Web Interfaces
 1. Once the script prints `Started ComfyUI on Port 8188...`
 2. Look at the **right-hand sidebar** in your Lightning AI Studio.
 3. Click the **"Ports"** or **"App"** plugin.
-4. If Port `8188` isn't listed, type `8188` and click the `+` button.
-5. Click the pop-out arrow next to port `8188` to open ComfyUI in a new tab!
+4. If the port you need isn't listed, type the port number and click the `+` button.
+5. Click the pop-out arrow next to the port to open it in a new tab!
+
+**Available Ports:**
+- **Port 8188:** ComfyUI
+- **Port 8675:** AI Toolkit UI
+- **Port 8080:** Filebrowser (Root directory access)
 
 ---
 
 ## 📦 What's Included
+- **Ostris AI Toolkit:** Train Loras directly.
+- **Filebrowser:** Easily upload models and manage outputs.
 - **Nunchaku Engine:** Dramatically accelerates SVD/SD3 inference via specialized compiling.
 - **Sage Attention:** A high-speed attention backend (much faster than `xformers` or `flash_attention_2` on modern GPUs).
 - **ComfyUI Manager**
